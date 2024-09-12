@@ -46,6 +46,9 @@ remainingTurnsMessage=f'Turns remaining: {str((maxTurns-turnsTaken))}'
 # Create take turn message
 takeTurnMessage='Please take your turn:'
 
+
+### GAME WELCOME SCREEN
+
 # Print welcome message and blurb
 print(f'{welcomeMessage}\n\n{blurb}\n')
 
@@ -88,34 +91,43 @@ while turnsTaken < 5:
         print(f'\t{' '.join(guess)}\n')
         print(f'\t{answer}\n')
 
+# Build guess grid
         for letter in guess:
+# if in answer say congratulations and indexes match: append to guessGrid
             if letter in answer:
                 print(f'Congratulations, {letter} is in the answer!\n')
                 if answer.index(letter) == guess.index(letter):
                     guessGrid.append(letter)
+# else if in answer and indees don't match: append uppercase to guessGrid
                 else:
                     guessGrid.append(f'{letter.upper()}')
+# else if not in answer: append to incorrectLetters list and append * to guessGrid
             else:
                 incorrectLetters.append(letter)
                 guessGrid.append('*')
 
+# Colourise guessGrid letters
         # print(' '.join(guessGrid))
         for letter in guessGrid:
             if letter.upper() == letter and letter != '*':
                 print(Fore.RED + letter.lower(), end=' ')
-                # print(Style.RESET_ALL)
             elif letter == '*':
                     print(Fore.WHITE + letter, end=' ')
             else:
                 print(Fore.GREEN + letter, end=' ')
         print(Style.RESET_ALL)
-        print(f'\nIncorrect letters: {incorrectLetters}')
+        print(f'\nIncorrect letters: {','.join(incorrectLetters)}')
+
+        if '*' not in guessGrid:
+            print('You win! Wooooooooooooooooo-rdoodle!')
+            break
+        
 # increment turns takento reduce remaining turns by 1
         turnsTaken += 1
 # print how many turns remaining        
         print(f'\nTurns remaining: {str((maxTurns-turnsTaken))}')
 
-
+print(f'\nGame over! (The word was {answer}!)')
 
 
 
@@ -130,7 +142,12 @@ while turnsTaken < 5:
 """
 NOTES:
 
-- end game when correct guess made
+- ***double letters bug***
 
-- end game when run out of lives
+- deal with duplicates in incorrect letters list
+
+- when player wins, don't print game over message
+
+- change layout, make pretty!
+
 """
