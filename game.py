@@ -1,5 +1,6 @@
 ### SETUP
 
+from colorama import Fore, Style
 # Import 'random' library for use in step 5
 import random
 
@@ -85,7 +86,7 @@ while turnsTaken < 5:
 # ...
     
         print(f'\t{' '.join(guess)}\n')
-        # print(f'\t{answer}\n')
+        print(f'\t{answer}\n')
 
         for letter in guess:
             if letter in answer:
@@ -93,12 +94,21 @@ while turnsTaken < 5:
                 if answer.index(letter) == guess.index(letter):
                     guessGrid.append(letter)
                 else:
-                    guessGrid.append(f'({letter})')
+                    guessGrid.append(f'{letter.upper()}')
             else:
                 incorrectLetters.append(letter)
                 guessGrid.append('*')
 
-        print(' '.join(guessGrid))
+        # print(' '.join(guessGrid))
+        for letter in guessGrid:
+            if letter.upper() == letter and letter != '*':
+                print(Fore.RED + letter.lower(), end=' ')
+                # print(Style.RESET_ALL)
+            elif letter == '*':
+                    print(Fore.WHITE + letter, end=' ')
+            else:
+                print(Fore.GREEN + letter, end=' ')
+        print(Style.RESET_ALL)
         print(f'\nIncorrect letters: {incorrectLetters}')
 # increment turns takento reduce remaining turns by 1
         turnsTaken += 1
