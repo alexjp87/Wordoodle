@@ -1,3 +1,5 @@
+### SETUP
+
 # Import 'random' library for use in step 5
 import random
 
@@ -13,11 +15,11 @@ with open('words.txt') as wordsFile:
         wordoodleDictionary.append(line.rstrip("\n").lower())
 
 # Pick random word for today's game
-todaysWord=random.choice(wordoodleDictionary)
+answer=random.choice(wordoodleDictionary)
 
 # Declare incorrectLetters and misplacedLetters variables
-incorrectLetters=[]
-misplacedLetters=[]
+guessGrid=[]
+# misplacedLetters=[]
 
 # Declare maxTurns and turnsTaken variables
 maxTurns=5
@@ -50,27 +52,77 @@ print(f'{welcomeMessage}\n\n{blurb}\n')
 # print(f'{enterPlayerNameMessage}\n')
 
 # Print welcome user message
-print(f'\nHello {(input('Player Name: '))}!')
+print(f'\n\nHello {(input('Player Name: '))}!')
 
 # Welcome user by name and print initial game status
 # print(f'{wordLengthMessage}\n')
 print(f'\n{remainingTurnsMessage}\n')
 
-# Game loop
+
+
+### GAME LOOP
 
 # define loop condition
 while turnsTaken < 5:
 
-    print(f'{takeTurnMessage}')
+# clear guessGrid list
+    guessGrid.clear()
 
-    turn = input()
+# prompt to take turn
+    print(f'\n{takeTurnMessage}')
 
+# capture input in variable 'turn'
+    guess = input()
 
-    if len(turn) != 5:
-        print('Please enter a 5 letter word!')
+# check if turn had the expected length of 5 characters
+    if len(guess) != 5:
+# if not, show error and prompt to try again
+        print('Invalid turn. Please enter a 5 letter word!')
+# and show that still have same number of turn remaining
         print(f'Turns remaining: {str((maxTurns-turnsTaken))}')
+# if so        
     else:
-        print(' '.join(turn))
-        print(todaysWord)
+# ...
+    
+        print(f'\t{' '.join(guess)}\n')
+        # print(f'\t{answer}\n')
+
+        for letter in guess:
+            if letter in answer:
+                print(f'Congratulations, {letter} is in the answer!\n')
+                if answer.index(letter) == guess.index(letter):
+                    guessGrid.append(letter)
+                else:
+                    guessGrid.append(f'({letter})')
+            else:
+                guessGrid.append('*')
+
+        print(' '.join(guessGrid))
+# increment turns takento reduce remaining turns by 1
         turnsTaken += 1
-        print(f'Turns remaining: {str((maxTurns-turnsTaken))}')
+# print how many turns remaining        
+        print(f'\nTurns remaining: {str((maxTurns-turnsTaken))}')
+
+
+
+
+
+
+
+
+
+
+
+
+
+"""
+- capture value of guess in 'turn' variable DONE
+
+- check each letter of guess is contained in answer
+
+- if so, print congratulations the letter x is in the answer + insert letter into list at correct position
+
+- if not, insert * into list at correct position
+
+
+"""
