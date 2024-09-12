@@ -19,7 +19,7 @@ answer=random.choice(wordoodleDictionary)
 
 # Declare incorrectLetters and misplacedLetters variables
 guessGrid=[]
-# misplacedLetters=[]
+incorrectLetters=[]
 
 # Declare maxTurns and turnsTaken variables
 maxTurns=5
@@ -73,7 +73,7 @@ while turnsTaken < 5:
 
 # capture input in variable 'turn'
     guess = input()
-
+    guess = guess.lower()
 # check if turn had the expected length of 5 characters
     if len(guess) != 5:
 # if not, show error and prompt to try again
@@ -95,9 +95,11 @@ while turnsTaken < 5:
                 else:
                     guessGrid.append(f'({letter})')
             else:
+                incorrectLetters.append(letter)
                 guessGrid.append('*')
 
         print(' '.join(guessGrid))
+        print(f'\nIncorrect letters: {incorrectLetters}')
 # increment turns takento reduce remaining turns by 1
         turnsTaken += 1
 # print how many turns remaining        
@@ -116,13 +118,9 @@ while turnsTaken < 5:
 
 
 """
-- capture value of guess in 'turn' variable DONE
+NOTES:
 
-- check each letter of guess is contained in answer
+- end game when correct guess made
 
-- if so, print congratulations the letter x is in the answer + insert letter into list at correct position
-
-- if not, insert * into list at correct position
-
-
+- end game when run out of lives
 """
