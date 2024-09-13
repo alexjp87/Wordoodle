@@ -39,7 +39,7 @@ takeTurnMessage='Please take your turn:'
 
 # Initialise wordoodleDictionary as empty list
 wordoodleDictionary=[]
-# populate wordoodleDictionary with contents of words.txt (strip white space at end of lines and make lower case)
+# populate wordoodleDictionary with contents of words.txt - strip white space at end of lines and make lower case
 with open('words.txt') as wordsFile:
     for line in wordsFile:
         wordoodleDictionary.append(line.rstrip("\n").lower())
@@ -63,6 +63,7 @@ def removeDuplicates(x):
 
 # Select random word from dictionary to become game answer
 answer=random.choice(wordoodleDictionary)
+
 
 
 ### START SCREEN
@@ -111,6 +112,9 @@ while turnsTaken < 5:
         print(f'\t{' '.join(guess)}\n')
         print(f'\t{answer}\n')
 
+# ***remove duplicates from guess and re-declare variable
+        guess = removeDuplicates(guess)
+
 ## And build string to display progress (guessString):
 # loop through input
         for letter in guess:
@@ -142,6 +146,10 @@ while turnsTaken < 5:
             else:
                 print(Fore.GREEN + letter, end=' ')
 
+        
+            while len(guessString) < 5:
+                guessString.append('*')
+
 # reset text colour to standard
         print(Style.RESET_ALL)
 
@@ -152,7 +160,7 @@ while turnsTaken < 5:
             break
 
 ## Else if player hasn't won and game continues:
-# remove duplicates and print incorrect guesses list
+# remove duplicates from incorrect guesses list and print
         incorrectGuesses = removeDuplicates(incorrectGuesses)
         print(f'\nIncorrect guesses: {' / '.join(incorrectGuesses)}')
 # increment turns taken by 1 and re-declare turnsRemaining variable
@@ -161,7 +169,7 @@ while turnsTaken < 5:
 # print how many turns remaining        
         print(f'\nTurns remaining: {str((turnsRemaining))}')
 
-# ...and return to start of game loop (approx. line 78 - clear guessString list and prompt input)
+# ...and return to start of game loop (approx. line 90 - clear guessString list and prompt input)
 
 
 print(f'\nGame over! (The word was \'{answer}\'!)')
@@ -183,8 +191,6 @@ NOTES:
 
 - change win condition - don't check for no *'s as would fail if had all letters but in wrong order
 
-- deal with duplicates in incorrect letters list
-
 - add instructions message
 
 - create win message variable and replace current string
@@ -194,6 +200,8 @@ NOTES:
     - where to place?
 
 - add more error checking, e.g. check if input consisted only of letters
+
+- README
 
 - change layout, make pretty!
     - centre title
