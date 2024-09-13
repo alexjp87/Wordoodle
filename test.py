@@ -14,18 +14,23 @@ prYellow('Hello Yellow!')
 print('t',5,end="")
 print(" next bit")
 """
-print(Fore.RED + "HELLO",end=" ")
-print(Fore.GREEN + "green text",end="")
-print(Style.RESET_ALL,end="")
-print("test")
+# print(Fore.RED + "HELLO",end=" ")
+# print(Fore.GREEN + "green text",end="")
+# print(Style.RESET_ALL,end="")
+# print("test")
 
-letters = ['a', '(b)', 'c']
+# letters = ['a', '(b)', 'c']
 
-for letter in letters:
-    if letter == 'a':
-        print(letter, end=' ')
-    else:
-        print(Fore.RED + letter, end=' ')
+# for letter in letters:
+#     if letter == 'a':
+#         print(letter, end=' ')
+#     else:
+#         print(Fore.RED + letter, end=' ')
 
-print(Style.RESET_ALL)
-print('Finished')
+# print(Style.RESET_ALL)
+# print('Finished')
+
+word='leave'
+
+for letter in word:
+    print(word.count(letter))

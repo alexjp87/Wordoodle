@@ -62,8 +62,8 @@ def removeDuplicates(x):
 
 
 # Select random word from dictionary to become game answer
-answer=random.choice(wordoodleDictionary)
-
+# answer=random.choice(wordoodleDictionary)
+answer='leave'
 
 
 ### START SCREEN
@@ -112,18 +112,31 @@ while turnsTaken < 5:
         print(f'\t{' '.join(guess)}\n')
         print(f'\t{answer}\n')
 
-# ***remove duplicates from guess and re-declare variable
-        guess = removeDuplicates(guess)
+# remove duplicates from input and re-declare variable
+        # guess = removeDuplicates(guess)
 
-## And build string to display progress (guessString):
+# ***NEEDED - CONDITION FOR IF ANSWER CONTAINS DUPLICATE LETTERS***
+
+## Build string to display progress (guessString):
 # loop through input
         for letter in guess:
+
+# ***NEEDED - CONDITION FOR IF LETTER OCCURS > ONCE IN ANSWER***
+
+            repeatedLetter = False
+            
+
 # if letter is contained in answer, print congratulations
             if letter in answer:
+                count=answer.count(letter)
+                if count > 1:
+                    repeatedLetter = True
                 print(f'Congratulations, {letter} is in the answer!\n')
 # if indexes match then append to guessString unmutated
+                # for x in range(count):
                 if answer.index(letter) == guess.index(letter):
                     guessString.append(letter)
+                
 # else if letter is contained in answer but indexes don't match then append to guessString in uppercase (flag)
                 else:
                     guessString.append(f'{letter.upper()}')
@@ -133,7 +146,6 @@ while turnsTaken < 5:
                 guessString.append('*')
 
 ## colourise guessString letters:
-        # print(' '.join(guessString))
 # loop through guessString
         for letter in guessString:
 # if letter was flagged (is uppercase) and isn't a * then print in RED and change end of line to a space
@@ -146,7 +158,7 @@ while turnsTaken < 5:
             else:
                 print(Fore.GREEN + letter, end=' ')
 
-        
+# compensate for removed duplicate letters by appending * to guessString if length is less than 5        
             while len(guessString) < 5:
                 guessString.append('*')
 
@@ -155,7 +167,7 @@ while turnsTaken < 5:
 
 
 ## Check guessString to see if player has won - if so print winning message and end game
-        if '*' not in guessString:
+        if  guess == answer:
             print('You win! Wooooooooooooooooo-rdoodle!')
             break
 
@@ -187,9 +199,7 @@ print(f'\nGame over! (The word was \'{answer}\'!)')
 """
 NOTES:
 
-- ***double letters bug***
-
-- change win condition - don't check for no *'s as would fail if had all letters but in wrong order
+- ***double letters bug*** - need to deal with repeated letters in answer and then guess using for loop to find indexes in order
 
 - add instructions message
 
