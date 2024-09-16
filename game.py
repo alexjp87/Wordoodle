@@ -51,7 +51,7 @@ wordoodleDictionary=[]
 # populate with contents of words.txt - strip white space at end of lines and make lower case
 with open('words.txt') as wordsFile:
     for line in wordsFile:
-        wordoodleDictionary.append(line.rstrip("\n").lower())
+        wordoodleDictionary.append(line.rstrip("\n").upper())
 
 # Initialise incorrectGuesses empty list
 incorrectGuesses=[]
@@ -70,7 +70,7 @@ def validateGuess(guess, answer, guessString):
 # if indexes match
         if guess[index] == answer[index]:
 # insert letter into output in same position
-            guessString[index] = guess[index].upper()
+            guessString[index] = guess[index].lower()
 # replace letter in answer with '!' so it doesn't show up on next loop
             answer.replace(answer[index], '!', 1)
 # Loop through guess to check for letters contained in answer but in incorrect position:
@@ -91,13 +91,13 @@ def printColouredLetters(guessString):
     for letter in guessString:
 # if * then print yellow
         if letter == '*':
-            print(Fore.YELLOW + letter)
+            print(f'{Fore.YELLOW + letter}')
 # else if letter was flagged as in correct position (is uppercase) print in green
-        elif letter.upper() == letter:
-            print(Fore.GREEN + letter)
+        elif letter.lower() == letter:
+            print(f'{Fore.GREEN + letter.upper()}')
 # else letter must have incorrect position so print in red
         else:
-            print(Fore.RED + letter.upper())
+            print(f'{Fore.RED + letter}')
 # Reset text colour to standard
         print(Style.RESET_ALL)
 
@@ -127,8 +127,7 @@ def removeDuplicates(x):
 #
 
 # Select random word from dictionary to become game answer
-# answer=random.choice(wordoodleDictionary)
-answer='leave'
+answer=random.choice(wordoodleDictionary)
 
 
 ## START SCREEN
@@ -143,7 +142,7 @@ print('\nPlease enter username:')
 username = input()
 
 # Print personalised welcome message
-print(f'\n\nHello {username}!')
+print(f'\n\nHello {username.title()}!')
 
 # Print initial game status: (number of turns remaining)
 print(f'\n{turnsRemainingMessage}\n')
@@ -165,45 +164,43 @@ while turnsTaken < 5:
 ## Capture input in variable
     guess = input()
 # re-declare input variable in lower case for case insensitivity
-    guess = guess.lower()
+    guess = guess.upper()
 
 
-## If input was not the expected length (5):
+## Error checking:
+# If input was not the expected length (5):
     if len(guess) != 5:
 # inform player of error and prompt to try again
         print('Invalid turn. Please enter a 5 letter word!')
 # display unchanged number of turns remaining
         print(f'\nTurns remaining: {str((turnsRemaining))}')
-
-
-## Else if input passes error checks:      
-    # else:
-# print input
-        # print(f'\t{' '.join(guess)}\n')
-        # print(f'\t{answer}\n')
-
-    printColouredLetters(validateGuess(guess, answer, guessString))
-
+# Else:
+    else:
+## process guess and print coloured guessString
+        printColouredLetters(validateGuess(guess, answer, guessString))
 
 ## Check guessString to see if player has won - if so print winning message and end game
-    if  guess == answer:
-        print('You win! Wooooooooooooooooo-rdoodle!')
-        break
+        if  guess == answer:
+            print(f'Congratulations {username}! You win!\n\nWooooooooooooooooo-rdoodle!')
+            break
 
 ## Else if player hasn't won and game continues:
+        else:    
+# increment turns taken by 1
+            turnsTaken += 1
+# if turns taken = 5, print game over message (and end loop)
+            if turnsTaken == 5:
+                print(f'\nGame over! (The word was \'{answer}\'!)')
+            else:
 # remove duplicates from incorrect guesses list and print
-    else:    
-        print(f'Incorrect guesses: {','.join(removeDuplicates(findIncorrectGuesses(guess, answer, incorrectGuesses)))}')
-# increment turns taken by 1 and re-declare turnsRemaining variable
-        turnsTaken += 1
-        turnsRemaining = (maxTurns - turnsTaken)
+                print(f'Incorrect guesses: {','.join(removeDuplicates(findIncorrectGuesses(guess, answer, incorrectGuesses)))}')
+# re-declare turnsRemaining variable
+                turnsRemaining = maxTurns - turnsTaken
 # print how many turns remaining        
-        print(f'\n{turnsRemainingMessage}')
+                print(f'\nTurns remaining: {turnsRemaining}')
 
 # ...and return to start of game loop (approx. line 90 - clear guessString list and prompt input)
 
-
-print(f'\nGame over! (The word was \'{answer}\'!)')
 
 
 
