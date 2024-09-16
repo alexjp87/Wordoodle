@@ -69,12 +69,64 @@ print(" next bit")
 # expected output:
 # e l * * E
 
+# def validateGuess(guess, answer, guessString):
+# # Define length of answer to check against
+#     length = 5
+# # Loop through guess to check for letters contained in answer and in correct position:
+#     for index in range(length):
+# # if indexes match
+#         if guess[index] == answer[index]:
+# # insert letter into output in same position
+#             guessString[index] = guess[index].upper()
+# # replace letter in answer with '!' so it doesn't show up on next loop
+#             answer.replace(answer[index], '!', 1)
+# # Loop through guess to check for letters contained in answer but in incorrect position:
+#     for index in range(length):
+# # if letter is in answer and has not already been replaced in output, i.e. the index in output is a '*'
+#         if guess[index] in answer and guessString[index] == '*':
+# # insert letter into output in same position
+#             guessString[index] = guess[index]
+# # replace letter in answer with '!' so it doesn't show up on next loop
+#             answer.replace(answer[index], '!', 1)
+# # Return guessString    
+#     return guessString
 
-answer = 'leave'
-guess = 'elope'
+# def printColouredLetters(guessString):
+# ## Loop through guessString
+#     for letter in guessString:
+# # if * then print yellow
+#         if letter == '*':
+#             print(Fore.YELLOW + letter)
+# # else if letter was flagged as in correct position (is uppercase) print in green
+#         elif letter.upper() == letter:
+#             print(Fore.GREEN + letter)
+# # else letter must have incorrect position so print in red
+#         else:
+#             print(Fore.RED + letter.upper())
+# # Reset text colour to standard
+#         print(Style.RESET_ALL)
+
+
+# printColouredLetters(validateGuess(guess, answer, guessString))
+
+# def findIncorrectGuesses(guess, answer, incorrectGuesses):
+#     for letter in guess:
+#         if letter not in answer:
+#             incorrectGuesses.append(letter)
+
+#     return(incorrectGuesses)
+
+# def removeDuplicates(x):
+#     return list(dict.fromkeys(x))
+
+# print(','.join(removeDuplicates(findIncorrectGuesses(guess, answer, incorrectGuesses))))
+
+answer = 'LEAVE'
+guess = 'ELOPE'
 guessString = ['*', '*', '*', '*', '*']
 incorrectGuesses=[]
 
+# Create validateGuess to process guess (deals with repeated letter issue) and populate guessString:
 def validateGuess(guess, answer, guessString):
 # Define length of answer to check against
     length = 5
@@ -82,10 +134,12 @@ def validateGuess(guess, answer, guessString):
     for index in range(length):
 # if indexes match
         if guess[index] == answer[index]:
-# insert letter into output in same position
-            guessString[index] = guess[index].upper()
+# insert letter into output in same position in lower case (flag)
+            guessString[index] = guess[index].lower()
 # replace letter in answer with '!' so it doesn't show up on next loop
-            answer.replace(answer[index], '!', 1)
+            answer = answer.replace(answer[index], '!', 1)
+            print(guessString)
+            print(answer)
 # Loop through guess to check for letters contained in answer but in incorrect position:
     for index in range(length):
 # if letter is in answer and has not already been replaced in output, i.e. the index in output is a '*'
@@ -94,36 +148,41 @@ def validateGuess(guess, answer, guessString):
             guessString[index] = guess[index]
 # replace letter in answer with '!' so it doesn't show up on next loop
             answer.replace(answer[index], '!', 1)
-# Return guessString    
+            print(guessString)
+# Return guessString list   
     return guessString
 
+
+# Create printColouredLetters to print coloured guessString:
 def printColouredLetters(guessString):
 ## Loop through guessString
     for letter in guessString:
 # if * then print yellow
         if letter == '*':
-            print(Fore.YELLOW + letter)
-# else if letter was flagged as in correct position (is uppercase) print in green
-        elif letter.upper() == letter:
-            print(Fore.GREEN + letter)
+            print(f'{Fore.YELLOW + letter}')
+# else if letter was flagged as in correct position (is lowercase) print in green
+        elif letter.lower() == letter:
+            print(f'{Fore.GREEN + letter.upper()}')
 # else letter must have incorrect position so print in red
         else:
-            print(Fore.RED + letter.upper())
+            print(f'{Fore.RED + letter}')
 # Reset text colour to standard
         print(Style.RESET_ALL)
 
 
-printColouredLetters(validateGuess(guess, answer, guessString))
-
+# Create findIncorrectGuesses:
 def findIncorrectGuesses(guess, answer, incorrectGuesses):
+# Loop through guess
     for letter in guess:
+# if letter not in answer
         if letter not in answer:
+ # append to incorrectGuesses list
             incorrectGuesses.append(letter)
-
+# Return incorrectGuesses
     return(incorrectGuesses)
 
+# Create removeDuplicates to neaten incorrectGuesses list
 def removeDuplicates(x):
     return list(dict.fromkeys(x))
 
-print(','.join(removeDuplicates(findIncorrectGuesses(guess, answer, incorrectGuesses))))
- 
+printColouredLetters(validateGuess(guess, answer, guessString))

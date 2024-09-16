@@ -30,7 +30,7 @@ blurb='A terminal-based word guessing game built in python'
 # ...
 
 # maxTurns
-maxTurns=5
+maxTurns=6
 # turnsTaken
 turnsTaken=0
 # turnsRemaining
@@ -69,10 +69,10 @@ def validateGuess(guess, answer, guessString):
     for index in range(length):
 # if indexes match
         if guess[index] == answer[index]:
-# insert letter into output in same position
+# insert letter into output in same position in lower case (flag)
             guessString[index] = guess[index].lower()
 # replace letter in answer with '!' so it doesn't show up on next loop
-            answer.replace(answer[index], '!', 1)
+            answer = answer.replace(answer[index], '!', 1)
 # Loop through guess to check for letters contained in answer but in incorrect position:
     for index in range(length):
 # if letter is in answer and has not already been replaced in output, i.e. the index in output is a '*'
@@ -92,7 +92,7 @@ def printColouredLetters(guessString):
 # if * then print yellow
         if letter == '*':
             print(f'{Fore.YELLOW + letter}')
-# else if letter was flagged as in correct position (is uppercase) print in green
+# else if letter was flagged as in correct position (is lowercase) print in green
         elif letter.lower() == letter:
             print(f'{Fore.GREEN + letter.upper()}')
 # else letter must have incorrect position so print in red
@@ -100,6 +100,7 @@ def printColouredLetters(guessString):
             print(f'{Fore.RED + letter}')
 # Reset text colour to standard
         print(Style.RESET_ALL)
+
 
 # Create findIncorrectGuesses:
 def findIncorrectGuesses(guess, answer, incorrectGuesses):
@@ -127,8 +128,8 @@ def removeDuplicates(x):
 #
 
 # Select random word from dictionary to become game answer
-answer=random.choice(wordoodleDictionary)
-
+# answer=random.choice(wordoodleDictionary)
+answer='LOAVE'
 
 ## START SCREEN
 
@@ -141,7 +142,7 @@ print('\nPlease enter username:')
 # Capture username in variable
 username = input()
 
-# Print personalised welcome message
+# Print personalised welcome message using capitalised username
 print(f'\n\nHello {username.title()}!')
 
 # Print initial game status: (number of turns remaining)
@@ -153,7 +154,7 @@ print(f'\n{turnsRemainingMessage}\n')
 
 
 # Define loop condition as: run game while number of turns taken is less than 5
-while turnsTaken < 5:
+while turnsTaken < maxTurns:
 
 # Return guessString to initial state
     guessString = ['*', '*', '*', '*', '*']
@@ -163,7 +164,7 @@ while turnsTaken < 5:
 
 ## Capture input in variable
     guess = input()
-# re-declare input variable in lower case for case insensitivity
+# re-declare input variable in upper case for case insensitivity
     guess = guess.upper()
 
 
@@ -171,7 +172,7 @@ while turnsTaken < 5:
 # If input was not the expected length (5):
     if len(guess) != 5:
 # inform player of error and prompt to try again
-        print('Invalid turn. Please enter a 5 letter word!')
+        print(f'{guess} is an invalid turn. Please enter a 5 letter word!')
 # display unchanged number of turns remaining
         print(f'\nTurns remaining: {str((turnsRemaining))}')
 # Else:
@@ -189,7 +190,7 @@ while turnsTaken < 5:
 # increment turns taken by 1
             turnsTaken += 1
 # if turns taken = 5, print game over message (and end loop)
-            if turnsTaken == 5:
+            if turnsTaken == maxTurns:
                 print(f'\nGame over! (The word was \'{answer}\'!)')
             else:
 # remove duplicates from incorrect guesses list and print
