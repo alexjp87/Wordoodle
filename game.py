@@ -1,6 +1,6 @@
 ### SETUP
 
-### Libraries
+## Import Libraries
 
 # Import 'colorama' library
 from colorama import Fore, Style
@@ -8,34 +8,39 @@ from colorama import Fore, Style
 # Import 'random' library
 import random
 
+#-------------------------------------------------------------#
 
-### Variables
 
-# Declare gameTitle variable
+## Declare Variables
+
+# gameTitle
 gameTitle='Wordoodle'
 
-# Create welcomeMessage
+# welcomeMessage
 welcomeMessage=f'Welcome to {gameTitle}!'
 
-# Create blurb
+# blurb
 blurb='A terminal-based word guessing game built in python'
 
-# Create instructions message
+# instructionsMessage
 # ...
 
-# Declare maxTurns and turnsTaken variables
+# maxTurns
 maxTurns=5
+# turnsTaken
 turnsTaken=0
-# Declare turnsRemaining variable
+# turnsRemaining
 turnsRemaining=(maxTurns-turnsTaken)
-# Create turnsRemaning message
+# turnsRemaning message
 turnsRemainingMessage=f'Turns remaining: {str(turnsRemaining)}'
 
-# Create takeTurn message
+# takeTurn message
 takeTurnMessage='Please take your turn:'
 
+#-------------------------------------------------------------#
 
-### Lists
+
+## Create Lists
 
 # Initialise wordoodleDictionary as empty list
 wordoodleDictionary=[]
@@ -44,14 +49,59 @@ with open('words.txt') as wordsFile:
     for line in wordsFile:
         wordoodleDictionary.append(line.rstrip("\n").lower())
 
-# Declare guessString and incorrectGuesses as empty lists
-guessString=[]
+# Declare guessString in initial state
+guessString = ['*', '*', '*', '*', '*']
+
+# Declare incorrectGuesses as empty list
 incorrectGuesses=[]
 
+#-------------------------------------------------------------#
 
-### Functions
 
-# Create removeDuplicates function
+## Create Functions
+
+# validateGuess to process guess (deals with duplicates) and populate guessString:
+def validateGuess(guess, answer, guessString):
+# Define length of answer to check against
+    length = 5
+# Loop through guess to check for letters contained in answer and in correct position:
+    for index in range(length):
+# if indexes match
+        if guess[index] == answer[index]:
+# insert letter into output in same position
+            guessString[index] = guess[index].upper()
+# replace letter in answer with '!' so it doesn't show up on next loop
+            answer.replace(answer[index], '!', 1)
+# Loop through guess to check for letters contained in answer but in incorrect position:
+    for index in range(length):
+# if letter is in answer and has not already been replaced in output, i.e. the index in output is a '*'
+        if guess[index] in answer and guessString[index] == '*':
+# insert letter into output in same position
+            guessString[index] = guess[index]
+# replace letter in answer with '!' so it doesn't show up on next loop
+            answer.replace(answer[index], '!', 1)
+# Return guessString    
+    return guessString
+
+
+# printColouredLetters to print coloured guessString:
+def printColouredLetters(guessString):
+## Loop through guessString
+    for letter in guessString:
+# if * then print yellow
+        if letter == '*':
+            print(Fore.YELLOW + letter)
+# else if letter was flagged as in correct position (is uppercase) print in green
+        elif letter.upper() == letter:
+            print(Fore.GREEN + letter)
+# else letter must have incorrect position so print in red
+        else:
+            print(Fore.RED + letter.upper())
+# Reset text colour to standard
+        print(Style.RESET_ALL)
+
+
+# removeDuplicates
 def removeDuplicates(x):
     return list(dict.fromkeys(x))
 
@@ -115,22 +165,16 @@ while turnsTaken < 5:
 # remove duplicates from input and re-declare variable
         # guess = removeDuplicates(guess)
 
-# ***NEEDED - CONDITION FOR IF ANSWER CONTAINS DUPLICATE LETTERS***
-
 ## Build string to display progress (guessString):
 # loop through input
         for letter in guess:
-
-# ***NEEDED - CONDITION FOR IF LETTER OCCURS > ONCE IN ANSWER***
-
-            repeatedLetter = False
             
 
 # if letter is contained in answer, print congratulations
             if letter in answer:
-                count=answer.count(letter)
-                if count > 1:
-                    repeatedLetter = True
+                # count=answer.count(letter)
+                # if count > 1:
+                #     repeatedLetter = True
                 print(f'Congratulations, {letter} is in the answer!\n')
 # if indexes match then append to guessString unmutated
                 # for x in range(count):
@@ -145,6 +189,7 @@ while turnsTaken < 5:
                 incorrectGuesses.append(letter)
                 guessString.append('*')
 
+        print(guessString)
 ## colourise guessString letters:
 # loop through guessString
         for letter in guessString:
