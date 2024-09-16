@@ -27,7 +27,7 @@ welcomeMessage=f'Welcome to {gameTitle}!'
 blurb='A terminal-based word guessing game built in python'
 
 # instructionsMessage
-# ...
+intructionsMessage='- Guess 5-letter words to try and match the answer!\n- Green letters are present in the answer and in the correct position\n- Red letters are present in the answer but currently in the wrong position\n\nYou will be provided with a list of guessed letters that are not present in the word as you go along\nGood luck!'
 
 # maxTurns
 maxTurns=6
@@ -87,19 +87,20 @@ def validateGuess(guess, answer, guessString):
 
 # Create printColouredLetters to print coloured guessString:
 def printColouredLetters(guessString):
+    print('\n')
 ## Loop through guessString
     for letter in guessString:
 # if * then print yellow
         if letter == '*':
-            print(f'{Fore.YELLOW + letter}')
+            print(f'{Fore.YELLOW + letter}', end=' ')
 # else if letter was flagged as in correct position (is lowercase) print in green
         elif letter.lower() == letter:
-            print(f'{Fore.GREEN + letter.upper()}')
+            print(f'{Fore.GREEN + letter.upper()}', end=' ')
 # else letter must have incorrect position so print in red
         else:
-            print(f'{Fore.RED + letter}')
+            print(f'{Fore.RED + letter}', end=' ')
 # Reset text colour to standard
-        print(Style.RESET_ALL)
+    print(Style.RESET_ALL)
 
 
 # Create findIncorrectGuesses:
@@ -135,6 +136,9 @@ answer=random.choice(wordoodleDictionary)
 ## Print welcome message and blurb
 print(f'\n{welcomeMessage}\n\n{blurb}\n')
 
+# Print instuctionsMessage
+print(intructionsMessage)
+
 # Prommpt player to enter name
 print('\nPlease enter username:')
 
@@ -166,7 +170,6 @@ while turnsTaken < maxTurns:
 # re-declare input variable in upper case for case insensitivity
     guess = guess.upper()
 
-
 ## Error checking:
 # If input was not the expected length (5):
     if len(guess) != 5:
@@ -181,7 +184,7 @@ while turnsTaken < maxTurns:
 
 ## Check guessString to see if player has won - if so print winning message and end game
         if  guess == answer:
-            print(f'Congratulations {username.title()}! You win!\n\nWooooooooooooooooo-rdoodle!')
+            print(f'\nCongratulations {username.title()}! You win!\n\nWooooooooooooooooo-rdoodle!')
             break
 
 ## Else if player hasn't won and game continues:
@@ -193,7 +196,7 @@ while turnsTaken < maxTurns:
                 print(f'\nGame over! (The word was \'{answer}\'!)')
             else:
 # remove duplicates from incorrect guesses list and print
-                print(f'Incorrect guesses: {','.join(removeDuplicates(findIncorrectGuesses(guess, answer, incorrectGuesses)))}')
+                print(f'\nIncorrect guesses: {','.join(removeDuplicates(findIncorrectGuesses(guess, answer, incorrectGuesses)))}')
 # re-declare turnsRemaining variable
                 turnsRemaining = maxTurns - turnsTaken
 # print how many turns remaining        
@@ -215,15 +218,8 @@ while turnsTaken < maxTurns:
 """
 NOTES:
 
-- add instructions message
-
 - add more error checking, e.g. check if input consisted only of letters
 
 - README
-
-- change layout, make pretty!
-    - centre title
-    - change gameplay strings to uppercase?
-    - | to separate incorrectGuesses?
 
 """
