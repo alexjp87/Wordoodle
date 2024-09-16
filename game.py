@@ -61,7 +61,7 @@ incorrectGuesses=[]
 
 ## Functions
 
-# Create validateGuess to process guess (deals with repeated letter issue) and populate guessString:
+# Create validateGuess to process guess (deals with repeated letter issue using .replace()) and populate guessString:
 def validateGuess(guess, answer, guessString):
 # Define length of answer to check against
     length = 5
@@ -69,15 +69,15 @@ def validateGuess(guess, answer, guessString):
     for index in range(length):
 # if indexes match
         if guess[index] == answer[index]:
-# insert letter into output in same position in lower case (flag)
+# insert letter into guessString in same position in lower case (indicates green for colours function)
             guessString[index] = guess[index].lower()
 # replace letter in answer with '!' so it doesn't show up on next loop
             answer = answer.replace(answer[index], '!', 1)
 # Loop through guess to check for letters contained in answer but in incorrect position:
     for index in range(length):
-# if letter is in answer and has not already been replaced in output, i.e. the index in output is a '*'
+# if letter is in answer and has not already been replaced in guessString, i.e. the index in output is a '*'
         if guess[index] in answer and guessString[index] == '*':
-# insert letter into output in same position
+# insert letter into guessString in same position
             guessString[index] = guess[index]
 # replace letter in answer with '!' so it doesn't show up on next loop
             answer.replace(answer[index], '!', 1)
@@ -93,10 +93,10 @@ def printColouredLetters(guessString):
 # if * then print yellow
         if letter == '*':
             print(f'{Fore.YELLOW + letter}', end=' ')
-# else if letter was flagged as in correct position (is lowercase) print in green
+# else if letter was flagged as being in correct position (is lowercase) print in green
         elif letter.lower() == letter:
             print(f'{Fore.GREEN + letter.upper()}', end=' ')
-# else letter must have incorrect position so print in red
+# else letter must be in incorrect position so print in red
         else:
             print(f'{Fore.RED + letter}', end=' ')
 # Reset text colour to standard
@@ -128,7 +128,7 @@ def removeDuplicates(x):
 #
 #
 
-# Select random word from dictionary to become game answer
+# Select random word from dictionary as answer
 answer=random.choice(wordoodleDictionary)
 
 ## START SCREEN
@@ -153,21 +153,20 @@ print(f'\n{turnsRemainingMessage}\n')
 
 
 
-### LOOP
+## LOOP
 
-
-# Define loop condition as: run game while number of turns taken is less than 5
+# Define loop condition as: run game while number of turns taken is less than maxTurns (6)
 while turnsTaken < maxTurns:
 
-# Return guessString to initial state
+# Set guessString to initial state
     guessString = ['*', '*', '*', '*', '*']
 
 # Prompt player to take turn
     print(f'\n{takeTurnMessage}')
 
-## Capture input in variable
+## Capture input in guess variable
     guess = input()
-# re-declare input variable in upper case for case insensitivity
+# re-declare guess variable in upper case for case insensitivity
     guess = guess.upper()
 
 ## Error checking:
@@ -189,20 +188,20 @@ while turnsTaken < maxTurns:
 
 ## Else if player hasn't won and game continues:
         else:    
-# increment turns taken by 1
+# increment turnsTaken by 1
             turnsTaken += 1
-# if turns taken = 5, print game over message (and end loop)
+# if turns taken = maxTurns, print game over message (and end loop)
             if turnsTaken == maxTurns:
                 print(f'\nGame over! (The word was \'{answer}\'!)')
             else:
-# remove duplicates from incorrect guesses list and print
+# remove duplicates from incorrectGuesses list and print
                 print(f'\nIncorrect guesses: {','.join(removeDuplicates(findIncorrectGuesses(guess, answer, incorrectGuesses)))}')
 # re-declare turnsRemaining variable
                 turnsRemaining = maxTurns - turnsTaken
-# print how many turns remaining        
+# print number of turns remaining        
                 print(f'\nTurns remaining: {turnsRemaining}')
 
-# ...and return to start of game loop (line 163 - re-initialise default guessString and prompt input)
+# ...and return to start of game loop (line 159)
 
 
 
