@@ -1,5 +1,9 @@
 ### SETUP
 
+#
+#
+#
+
 ## Import Libraries
 
 # Import 'colorama' library
@@ -11,7 +15,7 @@ import random
 #-------------------------------------------------------------#
 
 
-## Declare Variables
+## Variables
 
 # gameTitle
 gameTitle='Wordoodle'
@@ -40,27 +44,27 @@ takeTurnMessage='Please take your turn:'
 #-------------------------------------------------------------#
 
 
-## Create Lists
+## Lists
 
 # Initialise wordoodleDictionary as empty list
 wordoodleDictionary=[]
-# populate wordoodleDictionary with contents of words.txt - strip white space at end of lines and make lower case
+# populate with contents of words.txt - strip white space at end of lines and make lower case
 with open('words.txt') as wordsFile:
     for line in wordsFile:
         wordoodleDictionary.append(line.rstrip("\n").lower())
 
-# Declare guessString in initial state
+# Initialise guessString in initial state
 guessString = ['*', '*', '*', '*', '*']
 
-# Declare incorrectGuesses as empty list
+# Initialise incorrectGuesses empty list
 incorrectGuesses=[]
 
 #-------------------------------------------------------------#
 
 
-## Create Functions
+## Functions
 
-# validateGuess to process guess (deals with duplicates) and populate guessString:
+# Create validateGuess to process guess (deals with repeated letter issue) and populate guessString:
 def validateGuess(guess, answer, guessString):
 # Define length of answer to check against
     length = 5
@@ -80,11 +84,11 @@ def validateGuess(guess, answer, guessString):
             guessString[index] = guess[index]
 # replace letter in answer with '!' so it doesn't show up on next loop
             answer.replace(answer[index], '!', 1)
-# Return guessString    
+# Return guessString list   
     return guessString
 
 
-# printColouredLetters to print coloured guessString:
+# Create printColouredLetters to print coloured guessString:
 def printColouredLetters(guessString):
 ## Loop through guessString
     for letter in guessString:
@@ -100,8 +104,18 @@ def printColouredLetters(guessString):
 # Reset text colour to standard
         print(Style.RESET_ALL)
 
+# Create findIncorrectGuesses:
+def findIncorrectGuesses(guess, answer, incorrectGuesses):
+# Loop through guess
+    for letter in guess:
+# if letter not in answer
+        if letter not in answer:
+ # append to incorrectGuesses list
+            incorrectGuesses.append(letter)
+# Return incorrectGuesses
+    return(incorrectGuesses)
 
-# removeDuplicates
+# Create removeDuplicates to neaten incorrectGuesses list
 def removeDuplicates(x):
     return list(dict.fromkeys(x))
 
@@ -110,6 +124,9 @@ def removeDuplicates(x):
 
 ### GAME
 
+#
+#
+#
 
 # Select random word from dictionary to become game answer
 # answer=random.choice(wordoodleDictionary)
