@@ -171,8 +171,8 @@ while turnsTaken < maxTurns:
     guess = guess.upper()
 
 ## Error checking:
-# If input was not the expected length (5):
-    if len(guess) != 5:
+# If input was not the expected length (5) or input contained non-alphabet (Aa-Zz) characters:
+    if len(guess) != 5 or guess.isalpha() == False:
 # inform player of error and prompt to try again
         print(f'{guess} is an invalid turn. Please enter a 5 letter word!')
 # display unchanged number of turns remaining
@@ -202,7 +202,7 @@ while turnsTaken < maxTurns:
 # print how many turns remaining        
                 print(f'\nTurns remaining: {turnsRemaining}')
 
-# ...and return to start of game loop (approx. line 90 - clear guessString list and prompt input)
+# ...and return to start of game loop (line 163 - re-initialise default guessString and prompt input)
 
 
 
@@ -217,8 +217,6 @@ while turnsTaken < maxTurns:
 
 """
 NOTES:
-
-- add more error checking, e.g. check if input consisted only of letters
 
 - README
 
