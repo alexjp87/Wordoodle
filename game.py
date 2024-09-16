@@ -128,8 +128,7 @@ def removeDuplicates(x):
 #
 
 # Select random word from dictionary to become game answer
-# answer=random.choice(wordoodleDictionary)
-answer='LOAVE'
+answer=random.choice(wordoodleDictionary)
 
 ## START SCREEN
 
@@ -182,7 +181,7 @@ while turnsTaken < maxTurns:
 
 ## Check guessString to see if player has won - if so print winning message and end game
         if  guess == answer:
-            print(f'Congratulations {username}! You win!\n\nWooooooooooooooooo-rdoodle!')
+            print(f'Congratulations {username.title()}! You win!\n\nWooooooooooooooooo-rdoodle!')
             break
 
 ## Else if player hasn't won and game continues:
@@ -217,12 +216,6 @@ while turnsTaken < maxTurns:
 NOTES:
 
 - add instructions message
-
-- create win message variable and replace current string
-    - save player name to variable to personalise win message?
-
-- print game over message only when player runs out of turns, not when wins
-    - where to place?
 
 - add more error checking, e.g. check if input consisted only of letters
 
