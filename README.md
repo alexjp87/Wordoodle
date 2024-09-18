@@ -6,6 +6,7 @@
 I have recently been learning the basics of Python as part of Generation UK & Irelands's AWS re/Start Cloud Practioner programme. Building this game seemed like a good way to practice using some of the concepts I've learned so far, including declaring variables, creating and manipulating lists, and executing conditionals using for and while loops and if statements.
 Wordle is a game I play regularly in my life so it felt like a good option as I am familiar with the game.
 
+
 ### User Stories
 From the perspective of the player:
 
@@ -23,6 +24,7 @@ From the perspective of the developer:
 
 - As a python developer, I want to build a version of something that is already familiar to me in order to flatten the learning curve
 
+
 ### Design Choices
 
 I decided to have a Start screen which welcomed the user, gave them some instructions for how to play, and asks the user to input a username:
@@ -33,9 +35,13 @@ I decided to make the game terminal based which by default means the game would 
 
 !['Game Screen'](screenshots/Guess_Screen.PNG?raw=true "Guess Screen")
 
+
 ### Technologies Used
 
-Pyhton, Git, Github
+- Pyhton
+- Git
+- Github
+
 
 ### Challenges
 
@@ -46,6 +52,7 @@ My initial code output was showing both E's in LEAVE as being present in DRONE, 
 The fix for this was to replace each letter in the answer with a non-alphabetical character (I used '!') so that when the loop continues the surplus letter doesn't show up:
 
 !['Validate Guess Function](screenshots/Validate_Guess_Function.PNG "Validate Guess Function")
+
 
 ### Credits
 I would like to credit the creator of Wordle, Josh Wardle, for inspiring this project.
