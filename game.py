@@ -48,7 +48,7 @@ takeTurnMessage='Please take your turn:'
 
 # Initialise wordoodleDictionary as empty list
 wordoodleDictionary=[]
-# populate with contents of words.txt - strip white space at end of lines and make lower case
+# populate with contents of words.txt - strip white space at end of lines and make upper case
 with open('words.txt') as wordsFile:
     for line in wordsFile:
         wordoodleDictionary.append(line.rstrip("\n").upper())
