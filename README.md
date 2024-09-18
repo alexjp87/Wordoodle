@@ -18,11 +18,11 @@ From the perspective of the player:
 
 From the perspective of the developer:
 
-- As a python developer, I want to build a project that utilises variable, lists and loops in order to practice my skills
+- As a beginner python developer, I want to build a project that utilises variables, lists and loops in order to practice my skills
 
-- As a python developer, I want to build something that can be easily tested/debugged in the terminal as I go along
+- As a beginner python developer, I want to build something that can be easily tested/debugged in the terminal as I go along
 
-- As a python developer, I want to build a version of something that is already familiar to me in order to flatten the learning curve
+- As a beginner python developer, I want to build a version of something that is already familiar to me in order to flatten the learning curve
 
 
 ### Design Choices
@@ -45,11 +45,11 @@ I decided to make the game terminal based which by default means the game would 
 
 ### Challenges
 
-The biggest challenge I ran into was dealing with a use case where the guess contained more than one occurence of a letter contained in the answer, e.g. guess = 'LEAVE', answer = 'DRONE'.
+The biggest challenge I ran into was dealing with a use case where the guess contained more than one occurence of a letter contained in the answer, e.g. guess = 'LEAVE', answer = 'DRONE' (2 E's in 'LEAVE', 1 E in 'DRONE').
 
-My initial code output was showing both E's in LEAVE as being present in DRONE, however the desired output would be for the correct E to be marked green (i.e. correct) and the surplus E to be marked as a yellow * (i.e. incorrect).
+My initial code output was showing both E's in LEAVE as being present in DRONE, however the desired output would be for the last E to be marked green (i.e. in the correct position) and the surplus E to be marked as a yellow * (i.e. incorrect letter).
 
-The fix for this was to replace each letter in the answer with a non-alphabetical character (I used '!') so that when the loop continues the surplus letter doesn't show up (answer = answer.replace(answer[index], '!', 1)):
+The solution I found for this was to replace each letter in the answer with a non-alphabetical character (I used '!') so that when the loop continues the surplus letter doesn't show up. The code: answer = answer.replace(answer[index], '!', 1) is shown in the validateGuess() function below:
 
 !['Validate Guess Function](screenshots/Validate_Guess_Function.PNG "Validate Guess Function")
 
