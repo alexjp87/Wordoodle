@@ -49,7 +49,7 @@ The biggest challenge I ran into was dealing with a use case where the guess con
 
 My initial code output was showing both E's in LEAVE as being present in DRONE, however the desired output would be for the correct E to be marked green (i.e. correct) and the surplus E to be marked as a yellow * (i.e. incorrect).
 
-The fix for this was to replace each letter in the answer with a non-alphabetical character (I used '!') so that when the loop continues the surplus letter doesn't show up:
+The fix for this was to replace each letter in the answer with a non-alphabetical character (I used '!') so that when the loop continues the surplus letter doesn't show up (answer = answer.replace(answer[index], '!', 1)):
 
 !['Validate Guess Function](screenshots/Validate_Guess_Function.PNG "Validate Guess Function")
 
