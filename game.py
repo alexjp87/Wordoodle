@@ -202,21 +202,3 @@ while turnsTaken < maxTurns:
                 print(f'\nTurns remaining: {turnsRemaining}')
 
 # ...and return to start of game loop (line 159)
-
-
-
-
-
-
-
-
-
-
-
-
-"""
-NOTES:
-
-- README
-
-"""
